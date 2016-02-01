@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+{% block title %}
+Almabase Fetcher
+{% endblock %}
+
+{% block content %}
+{% if error  %}
+<div class="chip">
+	<div class = "material-icons">error_outline</div>{{error}}
+	<i class="material-icons">close</i>
+</div>
+{% endif %}
+
+<div class = "container">
+	<div class="row">
+		<a href = "{% url 'api:add_news' %}">
+			<button class="btn">Fetch News </button>
+		</a>
+	</div>
+
+
+	<div class="row">
+		<table id = "news_table">
+			<thead>
+				<th>Webiste</th>
+				<th>Summary</th>
+				<th>link</th>
+				<th>Date</th>
+				<th>Title</th>
+			</thead>
+			<tbody>
+
+				{% for neww in news %}
+				{% if neww.content|length > 0 %}
+				<tr>
+					<td>{{neww.website}}</td>
+					<td>{{neww.content}}</td>
+					<td>{{neww.url}}</td>
+					<td>{{neww.time_stamp_parsed}}</td>
+					<td>{{neww.title}}</td>
+				</tr>
+				{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+
+	{% endblock %}
